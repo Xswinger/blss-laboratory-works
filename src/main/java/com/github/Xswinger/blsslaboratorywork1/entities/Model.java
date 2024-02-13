@@ -7,9 +7,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name = "MODEL")
+@Data
 public class Model {
 
     @Id
@@ -17,6 +19,9 @@ public class Model {
 
     @Column(nullable = false)
     private String name;
+
+    @Column
+    private String description;
 
     @OneToOne
     @MapsId
