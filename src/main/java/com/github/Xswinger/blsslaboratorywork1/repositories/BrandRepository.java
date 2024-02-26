@@ -10,5 +10,5 @@ public interface BrandRepository extends CrudRepository<Brand, Long> {
     
     List<Brand> findAll();
 
-    List<Brand> findAllByBrands(Long id);
+    List<Brand> findAllByCountry_Id(Long id);
 }

@@ -24,6 +24,7 @@ public class Model {
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CLASS_ID")
     private CarClass carClass;
 
     @ManyToOne(fetch = FetchType.LAZY)

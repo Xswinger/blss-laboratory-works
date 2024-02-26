@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class CarLineUp {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "LINEUP_ID")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LINEUP_ID")
     private Set<Model> models;
 }

@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.github.Xswinger.blsslaboratorywork1.entities.Model;
+import com.github.Xswinger.blsslaboratorywork1.entities.CarClass;
 
-public interface ClassRepository extends CrudRepository<Model, Long> {
+public interface ClassRepository extends CrudRepository<CarClass, Long> {
     
-    List<Model> findAll();
+    List<CarClass> findAll();
 }
