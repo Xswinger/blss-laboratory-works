@@ -2,10 +2,10 @@ package com.github.Xswinger.blsslaboratorywork1.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -23,11 +23,14 @@ public class Model {
     @Column
     private String description;
 
-    @OneToOne
-    @MapsId
+    @ManyToOne(fetch = FetchType.LAZY)
     private CarClass carClass;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Country country;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LINEUP_ID")
+    private CarLineUp lineUp;
 
 }
