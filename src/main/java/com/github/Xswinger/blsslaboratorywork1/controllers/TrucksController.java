@@ -11,6 +11,8 @@ import com.github.Xswinger.blsslaboratorywork1.entities.Brand;
 import com.github.Xswinger.blsslaboratorywork1.interfaces.TransportController;
 import com.github.Xswinger.blsslaboratorywork1.services.TrucksService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/trucks")
 @CrossOrigin(origins = "", maxAge = 3600)
@@ -24,7 +26,7 @@ public class TrucksController implements TransportController{
     }
 
     @Override
-    public ResponseEntity<Brand[]> getBrands() {
+    public ResponseEntity<List<Brand>> getBrands() {
         try {
             return ResponseEntity.ok(service.getBrands());
         } catch (Exception e) {

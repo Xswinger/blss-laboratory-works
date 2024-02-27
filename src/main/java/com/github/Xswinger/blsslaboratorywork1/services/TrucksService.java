@@ -19,9 +19,9 @@ public class TrucksService {
         this.brandRepository = brandRepository;
     }
 
-    public Brand[] getBrands() {
+    public List<Brand>  getBrands() {
         List<Brand> brands = brandRepository.findAll();
-        return (Brand[]) brands.toArray();
+        return brands;
     }
     
     
