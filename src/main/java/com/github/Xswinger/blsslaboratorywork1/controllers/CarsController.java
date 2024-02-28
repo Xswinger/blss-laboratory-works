@@ -3,7 +3,8 @@ package com.github.Xswinger.blsslaboratorywork1.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus; 
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,8 +37,8 @@ public class CarsController implements TransportController{
     public ResponseEntity<List<Brand>> getBrands() {
         try {
             return ResponseEntity.ok(service.getBrands());
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        } catch (DataAccessException e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -54,9 +55,9 @@ public class CarsController implements TransportController{
     public ResponseEntity<List<Model>> getModels() {
         try {
             return ResponseEntity.ok(service.getModels());
-        } catch (Exception e) {
+        } catch (DataAccessException e) {
             System.out.println(e.getMessage());
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -64,8 +65,8 @@ public class CarsController implements TransportController{
     public ResponseEntity<List<CarClass>> getClasses() {
         try {
             return ResponseEntity.ok(service.getCarClasses());
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        } catch (DataAccessException e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -73,8 +74,8 @@ public class CarsController implements TransportController{
     public ResponseEntity<List<Country>> getCountries() {
         try {
             return ResponseEntity.ok(service.getCountries());
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        } catch (DataAccessException e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

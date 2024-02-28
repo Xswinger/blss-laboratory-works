@@ -1,6 +1,7 @@
 package com.github.Xswinger.blsslaboratorywork1.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,8 +30,8 @@ public class TrucksController implements TransportController{
     public ResponseEntity<List<Brand>> getBrands() {
         try {
             return ResponseEntity.ok(service.getBrands());
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        } catch (DataAccessException e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
