@@ -46,8 +46,8 @@ public class CarsController implements TransportController{
     public ResponseEntity<List<Brand>> getBrandsByCountry(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(service.getBrandsByCountry(id));
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        } catch (DataAccessException e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -86,8 +86,8 @@ public class CarsController implements TransportController{
         ) {
         try {
             return ResponseEntity.ok(service.getModelsByFilter(countryId, lineUpId));
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        } catch (DataAccessException e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
