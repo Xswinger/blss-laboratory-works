@@ -11,4 +11,6 @@ import com.github.Xswinger.blsslaboratorywork1.entities.Model;
 public interface ModelRepository extends CrudRepository<Model, Long> {
     
     List<Model> findAll();
+
+    List<Model> findAllByCountry_IdAndLineUp_Id(Long countryId, Long lineUpId);
 }

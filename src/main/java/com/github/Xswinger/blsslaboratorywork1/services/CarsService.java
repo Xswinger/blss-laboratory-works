@@ -41,6 +41,11 @@ public class CarsService{
         return brands;
     }
 
+    public List<Brand> getBrandsByCountry(Long id) {
+        List<Brand> brands = brandRepository.findAllByCountry_Id(id);
+        return brands;
+    }
+
     public List<Model> getModels() {
         List<Model> models = modelRepository.findAll();
         return models;
@@ -54,5 +59,10 @@ public class CarsService{
     public List<Country> getCountries() {
         List<Country> classes = countryRepository.findAll();
         return classes;
+    }
+
+    public List<Model> getModelsByFilter(Long countryId, Long lineUpId) {
+        List<Model> models = modelRepository.findAllByCountry_IdAndLineUp_Id(countryId, lineUpId);
+        return models;
     }
 }

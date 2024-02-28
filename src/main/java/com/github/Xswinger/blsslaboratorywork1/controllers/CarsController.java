@@ -7,7 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.Xswinger.blsslaboratorywork1.interfaces.TransportController;
@@ -38,6 +41,15 @@ public class CarsController implements TransportController{
         }
     }
 
+    @PostMapping("/country/{id}")
+    public ResponseEntity<List<Brand>> getBrandsByCountry(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(service.getBrandsByCountry(id));
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping("/models")
     public ResponseEntity<List<Model>> getModels() {
         try {
@@ -57,10 +69,22 @@ public class CarsController implements TransportController{
         }
     }
 
-    @GetMapping("/cars/country")
-    public ResponseEntity<List<Country>> getBrandsByCountries() {
+    @GetMapping("/country")
+    public ResponseEntity<List<Country>> getCountries() {
         try {
             return ResponseEntity.ok(service.getCountries());
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/filter")
+    public ResponseEntity<List<Model>> getModelByFilter(
+            @RequestParam("country") Long countryId,
+            @RequestParam("lineup") Long lineUpId
+        ) {
+        try {
+            return ResponseEntity.ok(service.getModelsByFilter(countryId, lineUpId));
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
