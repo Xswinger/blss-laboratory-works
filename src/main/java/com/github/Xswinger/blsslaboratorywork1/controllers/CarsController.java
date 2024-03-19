@@ -24,7 +24,7 @@ import com.github.Xswinger.blsslaboratorywork1.entities.Model;
 @RestController
 @RequestMapping("/cars")
 @CrossOrigin(origins = "", maxAge = 3600)
-public class CarsController implements TransportController{
+public class CarsController implements TransportController {
 
     private final CarsService service;
 
@@ -86,6 +86,17 @@ public class CarsController implements TransportController{
         ) {
         try {
             return ResponseEntity.ok(service.getModelsByFilter(countryId, lineUpId));
+        } catch (DataAccessException e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/random")
+    public ResponseEntity<List<Model>> getRandomByClass(
+            @RequestParam("class") Long classId
+        ) {
+        try {
+            return ResponseEntity.ok(service.getRandomClassesByCarClass(classId));
         } catch (DataAccessException e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }

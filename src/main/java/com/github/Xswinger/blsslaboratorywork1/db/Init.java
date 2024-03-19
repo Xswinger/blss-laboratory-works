@@ -23,9 +23,9 @@ public class Init {
     public void run() {
         String query;
 
-        for (int i = 0; i < initFileNames.length; i++) {
+        for (int i = 0; i < insertFileNames.length; i++) {
             try {
-                query = new String(Files.readAllBytes(Paths.get(mainPath + initFileNames[i] + ".sql")));
+                query = new String(Files.readAllBytes(Paths.get(mainPath + insertFileNames[i] + ".sql")));
                 jdbcTemplate.execute(query);
             } catch (Exception e) {
                 System.out.println(e);
