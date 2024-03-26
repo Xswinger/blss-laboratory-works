@@ -1,10 +1,10 @@
 HELP.md
 target/
-.mvn
+.mvn/
 !**/src/main/**/target/
 !**/src/test/**/target/
 **/src/main/resources/application.properties
-tmlock.lck
+tmlog.lck
 tmlog1.log
 
 ### STS ###
