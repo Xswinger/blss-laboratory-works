@@ -1,5 +1,7 @@
 package com.github.Xswinger.blsslaboratorywork1.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +33,7 @@ public class AdminController {
     }
 
     @PostMapping("/add/brand")
-    public ResponseEntity<Brand> saveBrand(@RequestBody Brand newBrand) {
+    public ResponseEntity<List<Brand>> saveBrand(@RequestBody Brand newBrand) {
         try {
             return ResponseEntity.ok(carsService.saveBrand(newBrand));
         } catch (Exception e) {

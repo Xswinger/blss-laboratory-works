@@ -1,10 +1,14 @@
 package com.github.Xswinger.blsslaboratorywork1.services;
 
-import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.jta.JtaTransactionManager;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.github.Xswinger.blsslaboratorywork1.config.AtomikosConfig;
 import com.github.Xswinger.blsslaboratorywork1.entities.Brand;
 import com.github.Xswinger.blsslaboratorywork1.entities.CarClass;
 import com.github.Xswinger.blsslaboratorywork1.entities.Country;
@@ -21,6 +25,8 @@ import java.util.*;
 @Service("cars")
 public class CarsService{
 
+    private final PlatformTransactionManager transactionManager;
+
     private final BrandRepository brandRepository;
 
     private final ModelRepository modelRepository;
@@ -30,11 +36,12 @@ public class CarsService{
     private final CountryRepository countryRepository;
     
     @Autowired
-    CarsService(BrandRepository brandRepository, ModelRepository modelRepository, ClassRepository classRepository, CountryRepository countryRepository) {
+    CarsService(BrandRepository brandRepository, ModelRepository modelRepository, ClassRepository classRepository, CountryRepository countryRepository, AtomikosConfig config) throws Throwable {
         this.brandRepository = brandRepository;
         this.classRepository = classRepository;
         this.modelRepository = modelRepository;
         this.countryRepository = countryRepository;
+        this.transactionManager = config.transactionManager();
     }
 
     // @Override
@@ -43,8 +50,20 @@ public class CarsService{
         return brands;
     }
 
-    public Brand saveBrand(@NonNull Brand newBrand) {
-        Brand brands = brandRepository.save(newBrand);
+    public List<Brand> saveBrand(@NonNull Brand newBrand) {
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setName("brandCreating");
+        TransactionStatus status = transactionManager.getTransaction(def);
+
+        List<Brand> brands = new ArrayList<>();
+        try {
+            brandRepository.save(newBrand);
+            brands = brandRepository.findAll();
+        } catch (Exception ex) {
+            transactionManager.rollback(status);
+            throw ex;
+        }
+        transactionManager.commit(status);
         return brands;
     }
 
