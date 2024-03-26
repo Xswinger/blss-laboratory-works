@@ -52,7 +52,7 @@ public class AdminController {
     }
 
     @PostMapping("/add/model")
-    public ResponseEntity<Model> saveModel(@RequestBody @NonNull Model newModel) {
+    public ResponseEntity<List<Model>> saveModel(@RequestBody @NonNull Model newModel) {
         try {
             return ResponseEntity.ok(carsService.saveModel(newModel));
         } catch (Exception e) {
@@ -71,7 +71,7 @@ public class AdminController {
     }
 
     @PostMapping("/add/class")
-    public ResponseEntity<CarClass> saveClass(@RequestBody @NonNull CarClass newClass) {
+    public ResponseEntity<List<CarClass>> saveClass(@RequestBody @NonNull CarClass newClass) {
         try {
             return ResponseEntity.ok(carsService.saveClass(newClass));
         } catch (Exception e) {
@@ -90,7 +90,7 @@ public class AdminController {
     }
 
     @PostMapping("/add/country")
-    public ResponseEntity<Country> saveCountry(@RequestBody @NonNull Country newCountry) {
+    public ResponseEntity<List<Country>> saveCountry(@RequestBody @NonNull Country newCountry) {
         try {
             return ResponseEntity.ok(carsService.saveCountry(newCountry));
         } catch (Exception e) {

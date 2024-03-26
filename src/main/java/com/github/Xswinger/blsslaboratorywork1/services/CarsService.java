@@ -12,7 +12,7 @@ import com.github.Xswinger.blsslaboratorywork1.config.AtomikosConfig;
 import com.github.Xswinger.blsslaboratorywork1.entities.Brand;
 import com.github.Xswinger.blsslaboratorywork1.entities.CarClass;
 import com.github.Xswinger.blsslaboratorywork1.entities.Country;
-// import com.github.Xswinger.blsslaboratorywork1.interfaces.TransportService;
+import com.github.Xswinger.blsslaboratorywork1.interfaces.TransportService;
 import com.github.Xswinger.blsslaboratorywork1.entities.Model;
 
 import com.github.Xswinger.blsslaboratorywork1.repositories.BrandRepository;
@@ -81,9 +81,21 @@ public class CarsService{
         return models;
     }
 
-    public Model saveModel(@NonNull Model newModel) {
-        Model model = modelRepository.save(newModel);
-        return model;
+    public List<Model> saveModel(@NonNull Model newModel) {
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setName("brandCreating");
+        TransactionStatus status = transactionManager.getTransaction(def);
+
+        List<Model> brands = new ArrayList<>();
+        try {
+            modelRepository.save(newModel);
+            brands = modelRepository.findAll();
+        } catch (Exception ex) {
+            transactionManager.rollback(status);
+            throw ex;
+        }
+        transactionManager.commit(status);
+        return brands;
     }
 
     public void deleteModel(@NonNull Long id) {
@@ -100,9 +112,21 @@ public class CarsService{
         return classes;
     }
 
-    public CarClass saveClass(@NonNull CarClass newClass) {
-        CarClass newCarClass = classRepository.save(newClass);
-        return newCarClass;
+    public List<CarClass> saveClass(@NonNull CarClass newClass) {
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setName("countryCreating");
+        TransactionStatus status = transactionManager.getTransaction(def);
+
+        List<CarClass> classes = new ArrayList<>();
+        try {
+            classRepository.save(newClass);
+            classes = classRepository.findAll();
+        } catch (Exception ex) {
+            transactionManager.rollback(status);
+            throw ex;
+        }
+        transactionManager.commit(status);
+        return classes;
     }
 
     public void deleteClass(@NonNull Long id) {
@@ -114,9 +138,21 @@ public class CarsService{
         return classes;
     }
 
-    public Country saveCountry(@NonNull Country country) {
-        Country newCountry = countryRepository.save(country);
-        return newCountry;
+    public List<Country> saveCountry(@NonNull Country country) {
+        DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+        def.setName("countryCreating");
+        TransactionStatus status = transactionManager.getTransaction(def);
+
+        List<Country> countries = new ArrayList<>();
+        try {
+            countryRepository.save(country);
+            countries = countryRepository.findAll();
+        } catch (Exception ex) {
+            transactionManager.rollback(status);
+            throw ex;
+        }
+        transactionManager.commit(status);
+        return countries;
     }
 
     public void deleteCountry(@NonNull Long id) {
