@@ -10,6 +10,6 @@ import com.github.Xswinger.blsslaboratorywork1.entities.Brand;
 public interface TransportController {
 
     @GetMapping("/")
-    ResponseEntity<List<Brand>> getBrands();
+    ResponseEntity<?> getBrands();
 
 }

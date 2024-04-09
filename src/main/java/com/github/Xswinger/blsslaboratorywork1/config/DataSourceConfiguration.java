@@ -67,13 +67,16 @@ public class DataSourceConfiguration {
     @ConfigurationProperties("spring.datasource")
     public DataSource inventoryDataSource(@Qualifier("dataSourceProperties") DataSourceProperties accountDataSourceProperties) {
         PGXADataSource ds = new PGXADataSource();
+
         ds.setUrl(accountDataSourceProperties.getUrl());
         ds.setUser(accountDataSourceProperties.getUsername());
         ds.setPassword(accountDataSourceProperties.getPassword());
 
         AtomikosDataSourceBean dataSource = new AtomikosDataSourceBean();
+
         dataSource.setXaDataSource(ds);
         dataSource.setUniqueResourceName("ds1");
+        
         return dataSource;
     }
 

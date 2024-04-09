@@ -1,5 +1,6 @@
 package com.github.Xswinger.blsslaboratorywork1.services;
 
+import org.hibernate.NonUniqueObjectException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -59,7 +60,7 @@ public class CarsService{
         try {
             brandRepository.save(newBrand);
             brands = brandRepository.findAll();
-        } catch (Exception ex) {
+        } catch (NonUniqueObjectException ex) {
             transactionManager.rollback(status);
             throw ex;
         }
@@ -90,7 +91,7 @@ public class CarsService{
         try {
             modelRepository.save(newModel);
             brands = modelRepository.findAll();
-        } catch (Exception ex) {
+        } catch (NonUniqueObjectException ex) {
             transactionManager.rollback(status);
             throw ex;
         }
@@ -121,7 +122,7 @@ public class CarsService{
         try {
             classRepository.save(newClass);
             classes = classRepository.findAll();
-        } catch (Exception ex) {
+        } catch (NonUniqueObjectException ex) {
             transactionManager.rollback(status);
             throw ex;
         }
@@ -147,7 +148,7 @@ public class CarsService{
         try {
             countryRepository.save(country);
             countries = countryRepository.findAll();
-        } catch (Exception ex) {
+        } catch (NonUniqueObjectException ex) {
             transactionManager.rollback(status);
             throw ex;
         }

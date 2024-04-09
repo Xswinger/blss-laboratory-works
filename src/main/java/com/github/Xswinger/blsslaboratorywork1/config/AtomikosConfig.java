@@ -13,9 +13,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.jta.JtaTransactionManager;
 
-//! PROBLEM WITH USING JAKARTA/JAVAX (Spring transactions using jakarta in newest versions, but atomicos.transactions-jta using javax)
-//* Update: Solved with transactions-spring-boot3-starter dependency in pom */
-
 import jakarta.transaction.TransactionManager;
 import jakarta.transaction.UserTransaction;
 

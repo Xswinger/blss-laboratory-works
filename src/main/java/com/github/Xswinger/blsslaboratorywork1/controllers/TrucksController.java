@@ -27,11 +27,11 @@ public class TrucksController implements TransportController{
     }
 
     @Override
-    public ResponseEntity<List<Brand>> getBrands() {
+    public ResponseEntity<?> getBrands() {
         try {
             return ResponseEntity.ok(service.getBrands());
         } catch (DataAccessException e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Enum<?>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

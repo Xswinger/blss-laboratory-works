@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,78 +34,78 @@ public class AdminController {
     }
 
     @PostMapping("/add/brand")
-    public ResponseEntity<List<Brand>> saveBrand(@RequestBody Brand newBrand) {
+    public ResponseEntity<?> saveBrand(@RequestBody Brand newBrand) {
         try {
             return ResponseEntity.ok(carsService.saveBrand(newBrand));
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
         }
     }
 
     @DeleteMapping("/delete/brand")
-    public ResponseEntity<String> removeBrand(@RequestParam("id") @NonNull Long id) {
+    public ResponseEntity<?> removeBrand(@RequestParam("id") @NonNull Long id) {
         try {
             carsService.deleteBrand(id);
             return ResponseEntity.ok("ok");
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
         }
     }
 
     @PostMapping("/add/model")
-    public ResponseEntity<List<Model>> saveModel(@RequestBody @NonNull Model newModel) {
+    public ResponseEntity<?> saveModel(@RequestBody @NonNull Model newModel) {
         try {
             return ResponseEntity.ok(carsService.saveModel(newModel));
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
         }
     }
 
     @DeleteMapping("/delete/model")
-    public ResponseEntity<String> removeModel(@RequestParam("id") @NonNull Long id) {
+    public ResponseEntity<?> removeModel(@RequestParam("id") @NonNull Long id) {
         try {
             carsService.deleteModel(id);
             return ResponseEntity.ok("ok");
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
         }
     }
 
     @PostMapping("/add/class")
-    public ResponseEntity<List<CarClass>> saveClass(@RequestBody @NonNull CarClass newClass) {
+    public ResponseEntity<?> saveClass(@RequestBody @NonNull CarClass newClass) {
         try {
             return ResponseEntity.ok(carsService.saveClass(newClass));
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
         }
     }
 
     @DeleteMapping("/delete/class")
-    public ResponseEntity<String> removeClass(@RequestParam("id") @NonNull Long id) {
+    public ResponseEntity<?> removeClass(@RequestParam("id") @NonNull Long id) {
         try {
             carsService.deleteClass(id);
             return ResponseEntity.ok("ok");
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
         }
     }
 
     @PostMapping("/add/country")
-    public ResponseEntity<List<Country>> saveCountry(@RequestBody @NonNull Country newCountry) {
+    public ResponseEntity<?> saveCountry(@RequestBody @NonNull Country newCountry) {
         try {
             return ResponseEntity.ok(carsService.saveCountry(newCountry));
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
         }
     }
 
     @DeleteMapping("/delete/country")
-    public ResponseEntity<String> removeCountry(@RequestParam("id") @NonNull Long id) {
+    public ResponseEntity<?> removeCountry(@RequestParam("id") @NonNull Long id) {
         try {
             carsService.deleteCountry(id);
             return ResponseEntity.ok("ok");
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
         }
     }
 }

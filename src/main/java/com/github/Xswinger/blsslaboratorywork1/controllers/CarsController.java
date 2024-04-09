@@ -34,71 +34,71 @@ public class CarsController implements TransportController {
     }
     
     @Override
-    public ResponseEntity<List<Brand>> getBrands() {
+    public ResponseEntity<?> getBrands() {
         try {
             return ResponseEntity.ok(service.getBrands());
         } catch (DataAccessException e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Enum<?>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/country/{id}")
-    public ResponseEntity<List<Brand>> getBrandsByCountry(@PathVariable Long id) {
+    public ResponseEntity<?> getBrandsByCountry(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(service.getBrandsByCountry(id));
         } catch (DataAccessException e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Enum<?>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/models")
-    public ResponseEntity<List<Model>> getModels() {
+    public ResponseEntity<?> getModels() {
         try {
             return ResponseEntity.ok(service.getModels());
         } catch (DataAccessException e) {
             System.out.println(e.getMessage());
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Enum<?>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/class")
-    public ResponseEntity<List<CarClass>> getClasses() {
+    public ResponseEntity<?> getClasses() {
         try {
             return ResponseEntity.ok(service.getCarClasses());
         } catch (DataAccessException e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Enum<?>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/country")
-    public ResponseEntity<List<Country>> getCountries() {
+    public ResponseEntity<?> getCountries() {
         try {
             return ResponseEntity.ok(service.getCountries());
         } catch (DataAccessException e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Enum<?>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/filter")
-    public ResponseEntity<List<Model>> getModelByFilter(
+    public ResponseEntity<?> getModelByFilter(
             @RequestParam("country") Long countryId,
             @RequestParam("lineup") Long lineUpId
         ) {
         try {
             return ResponseEntity.ok(service.getModelsByFilter(countryId, lineUpId));
         } catch (DataAccessException e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Enum<?>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/random")
-    public ResponseEntity<List<Model>> getRandomByClass(
+    public ResponseEntity<?> getRandomByClass(
             @RequestParam("class") Long classId
         ) {
         try {
             return ResponseEntity.ok(service.getRandomClassesByCarClass(classId));
         } catch (DataAccessException e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Enum<?>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

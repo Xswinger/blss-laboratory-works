@@ -12,15 +12,8 @@ public class WebSecurityConfig {
     
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable();//Доступ к страницам / и /home для всех с аутентификацией
-            // .authorizeHttpRequests((requests) -> requests
-            //     .requestMatchers("/", "/cars").permitAll().anyRequest().authenticated()
-            // )
-            // .formLogin((form) -> form //спецификация базовой формы аутентификации
-            //     .loginPage("/login")
-            //     .permitAll()
-            // ).logout((logout) -> logout.permitAll())
-            // ;
+        http.cors().and().csrf().disable().authorizeRequests()
+        .requestMatchers("/admin/**").hasRole("ADMIN");
 
         return http.build();
     }
