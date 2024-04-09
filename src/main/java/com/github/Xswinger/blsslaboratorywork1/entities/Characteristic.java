@@ -23,25 +23,30 @@ public class Characteristic {
     @MapsId
     private Model model;
 
-    @Column(nullable = false)
+    @Column(name = "carcase_type", nullable = false)
     private String carcaseType;
 
     @Column(nullable = false)
     private int weight;
 
+    @Column(name = "lifting_capacity")
     private int liftingCapacity;
 
+    @Column(name = "engine_type")
     private String engineType;
 
     private int capacity;
 
+    @Column(name = "max_power")
     private int maxPower;
 
+    @Column(name = "gearbox_type")
     private String gearboxType;
 
     private String transmission;
 
     private String tires;
 
+    @Column(name = "fuel_type")
     private String fuelType;
 }

@@ -7,6 +7,8 @@ import jakarta.transaction.UserTransaction;
 
 public class AtomikosJtaPlatform extends AbstractJtaPlatform {
 
+    private static final long serialVersionUID = 1L;
+
     static TransactionManager transactionManager;
     static UserTransaction transaction;
 

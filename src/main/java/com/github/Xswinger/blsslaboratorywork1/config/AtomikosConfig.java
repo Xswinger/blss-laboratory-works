@@ -3,15 +3,10 @@ package com.github.Xswinger.blsslaboratorywork1.config;
 
 import com.atomikos.icatch.jta.UserTransactionImp;
 import com.atomikos.icatch.jta.UserTransactionManager;
-import com.atomikos.jdbc.AtomikosDataSourceBean;
-
-import org.postgresql.xa.PGXADataSource;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -27,23 +22,9 @@ import jakarta.transaction.UserTransaction;
 @Configuration
 public class AtomikosConfig {
 
-    @Bean("dataSourceProperties")
-    @ConfigurationProperties("spring.datasource")
-    public DataSourceProperties accountDataSourceProperties() {
-        return new DataSourceProperties();
-    }
-    
     @Bean
-    public AtomikosDataSourceBean inventoryDataSource(@Qualifier("dataSourceProperties") DataSourceProperties accountDataSourceProperties) {
-        PGXADataSource ds = new PGXADataSource();
-        ds.setUrl(accountDataSourceProperties.getUrl());
-        ds.setUser(accountDataSourceProperties.getUsername());
-        ds.setPassword(accountDataSourceProperties.getPassword());
-
-        AtomikosDataSourceBean dataSource = new AtomikosDataSourceBean();
-        dataSource.setXaDataSource(ds);
-        dataSource.setUniqueResourceName("ds1");
-        return dataSource;
+    public PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
     }
 
     @Bean
