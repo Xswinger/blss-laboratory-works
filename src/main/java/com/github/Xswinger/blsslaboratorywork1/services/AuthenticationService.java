@@ -6,7 +6,6 @@ import com.github.Xswinger.blsslaboratorywork1.sequrity.SignInRequest;
 import com.github.Xswinger.blsslaboratorywork1.sequrity.SignUpRequest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,13 +32,13 @@ public class AuthenticationService {
      */
     public JwtAuthenticationResponse signUp(SignUpRequest request) {
 
-        var user = User.builder()
-                .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .roles(String.valueOf(Role.R_USER))
-                .build();
+        var user = new com.github.Xswinger.blsslaboratorywork1.entities.User(
+                request.getUsername(),
+                passwordEncoder.encode(request.getPassword()),
+                Role.ROLE_USER
+        );
 
-        userService.create((com.github.Xswinger.blsslaboratorywork1.entities.User) user);
+        userService.create(user);
 
         var jwt = jwtService.generateToken(user);
         return new JwtAuthenticationResponse(jwt);

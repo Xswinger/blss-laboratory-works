@@ -20,10 +20,15 @@ import java.util.List;
 @Component
 public class User implements UserDetails {
 
+    public User(String username, String password, Role role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private int id;
 
     @Column(name = "username", unique = true, nullable = false)
     private String username;
@@ -48,6 +53,10 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return username;
+    }
+
+    public Role getRole() {
+        return role;
     }
 
     @Override

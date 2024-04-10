@@ -92,7 +92,7 @@ public class UserService {
     @Deprecated
     public void getAdmin() {
         var user = getCurrentUser();
-        user.setRole(Role.R_ADMIN);
+        user.setRole(Role.ROLE_ADMIN);
         save(user);
     }
 }
