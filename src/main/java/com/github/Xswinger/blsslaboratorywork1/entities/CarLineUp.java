@@ -18,7 +18,7 @@ import lombok.Data;
 public class CarLineUp {
     @Id
     @GeneratedValue
-    private Long id;
+    private int id;
 
     @Column(nullable = false)
     private String name;

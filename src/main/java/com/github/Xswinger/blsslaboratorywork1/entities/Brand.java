@@ -1,5 +1,6 @@
 package com.github.Xswinger.blsslaboratorywork1.entities;
 
+import java.math.BigInteger;
 import java.util.*;
 
 import jakarta.persistence.Column;
@@ -20,7 +21,7 @@ public class Brand {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private int id;
 
     @Column(nullable = false)
     private String name;

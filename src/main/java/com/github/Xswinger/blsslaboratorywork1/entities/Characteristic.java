@@ -17,13 +17,13 @@ public class Characteristic {
     
     @Id
     @GeneratedValue
-    private Long id;
+    private int id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     private Model model;
 
-    @Column(name = "carcase_type", nullable = false)
+    @Column(name = "carcase", nullable = false)
     private String carcaseType;
 
     @Column(nullable = false)

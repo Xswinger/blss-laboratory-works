@@ -15,7 +15,7 @@ import lombok.Data;
 public class Model {
 
     @Id
-    private Long id;
+    private int id;
 
     @Column(nullable = false)
     private String name;
