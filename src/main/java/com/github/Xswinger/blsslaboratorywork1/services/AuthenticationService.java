@@ -1,6 +1,6 @@
 package com.github.Xswinger.blsslaboratorywork1.services;
 
-import com.github.Xswinger.blsslaboratorywork1.entities.enums.Role;
+import com.github.Xswinger.blsslaboratorywork1.entities.enums.UserRole;
 import com.github.Xswinger.blsslaboratorywork1.sequrity.JwtAuthenticationResponse;
 import com.github.Xswinger.blsslaboratorywork1.sequrity.SignInRequest;
 import com.github.Xswinger.blsslaboratorywork1.sequrity.SignUpRequest;
@@ -35,7 +35,7 @@ public class AuthenticationService {
         var user = new com.github.Xswinger.blsslaboratorywork1.entities.User(
                 request.getUsername(),
                 passwordEncoder.encode(request.getPassword()),
-                Role.ROLE_USER
+                UserRole.ROLE_USER
         );
 
         userService.create(user);

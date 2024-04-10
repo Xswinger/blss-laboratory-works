@@ -1,11 +1,8 @@
 package com.github.Xswinger.blsslaboratorywork1.services;
 
 import com.github.Xswinger.blsslaboratorywork1.entities.User;
-import com.github.Xswinger.blsslaboratorywork1.entities.enums.Role;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.Xswinger.blsslaboratorywork1.entities.enums.UserRole;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -90,7 +87,7 @@ public class UserService {
     @Deprecated
     public void getAdmin() {
         var user = getCurrentUser();
-        user.setRole(Role.ROLE_ADMIN);
+        user.setRole(UserRole.ROLE_ADMIN);
         save(user);
     }
 }

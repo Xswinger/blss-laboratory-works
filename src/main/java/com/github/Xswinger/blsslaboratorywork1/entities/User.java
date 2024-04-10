@@ -1,14 +1,11 @@
 package com.github.Xswinger.blsslaboratorywork1.entities;
 
-import com.github.Xswinger.blsslaboratorywork1.entities.enums.Role;
+import com.github.Xswinger.blsslaboratorywork1.entities.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -24,7 +21,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String password, Role role) {
+    public User(String username, String password, UserRole role) {
         this.username = username;
         this.password = password;
         this.role = role;
@@ -41,8 +38,8 @@ public class User implements UserDetails {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private Role role;
+    @Column(name = "user_role", nullable = false)
+    private UserRole role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -63,7 +60,7 @@ public class User implements UserDetails {
         return id;
     }
 
-    public Role getRole() {
+    public UserRole getRole() {
         return role;
     }
 
@@ -87,7 +84,7 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setRole(Role role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 
