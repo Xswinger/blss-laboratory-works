@@ -18,18 +18,18 @@ public class ExampleController {
         this.service = service;
     }
 
-    @GetMapping
-    @Operation(summary = "Доступен только авторизованным пользователям")
-    public String example() {
-        return "Hello, world!";
-    }
-
-    @GetMapping("/admin")
-    @Operation(summary = "Доступен только авторизованным пользователям с ролью ADMIN")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String exampleAdmin() {
-        return "Hello, admin!";
-    }
+//    @GetMapping
+//    @Operation(summary = "Доступен только авторизованным пользователям")
+//    public String example() {
+//        return "Hello, world!";
+//    }
+//
+//    @GetMapping("/admin")
+//    @Operation(summary = "Доступен только авторизованным пользователям с ролью ADMIN")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public String exampleAdmin() {
+//        return "Hello, admin!";
+//    }
 
     @GetMapping("/get-admin")
     @Operation(summary = "Получить роль ADMIN (для демонстрации)")
