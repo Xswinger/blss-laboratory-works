@@ -3,6 +3,7 @@ package com.github.Xswinger.blsslaboratorywork1.entities;
 import com.github.Xswinger.blsslaboratorywork1.entities.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,8 +18,11 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "users")
-@Component
+@Service
 public class User implements UserDetails {
+
+    public User() {
+    }
 
     public User(String username, String password, Role role) {
         this.username = username;
@@ -55,6 +59,10 @@ public class User implements UserDetails {
         return username;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public Role getRole() {
         return role;
     }
@@ -81,6 +89,10 @@ public class User implements UserDetails {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
 

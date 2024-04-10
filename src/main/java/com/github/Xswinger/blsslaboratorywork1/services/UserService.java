@@ -18,12 +18,10 @@ public class UserService {
 
     final UserRepository repository;
 
-    @Autowired
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
 
-    @Autowired
     public User save(User user) {
         return repository.save(user);
     }
