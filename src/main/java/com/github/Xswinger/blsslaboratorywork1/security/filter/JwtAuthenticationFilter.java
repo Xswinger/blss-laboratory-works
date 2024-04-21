@@ -1,13 +1,13 @@
-package com.github.Xswinger.blsslaboratorywork1.sequrity;
+package com.github.Xswinger.blsslaboratorywork1.security.filter;
 
-import com.github.Xswinger.blsslaboratorywork1.services.JwtService;
-import com.github.Xswinger.blsslaboratorywork1.services.UserService;
+import com.github.Xswinger.blsslaboratorywork1.security.service.JwtService;
+import com.github.Xswinger.blsslaboratorywork1.security.service.UserService;
+
 import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
@@ -21,6 +21,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 //@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
     public static final String BEARER_PREFIX = "Bearer ";
     public static final String HEADER_NAME = "Authorization";
     private final JwtService jwtService;
@@ -41,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // Получаем токен из заголовка
         var authHeader = request.getHeader(HEADER_NAME);
-        if (StringUtils.isEmpty(authHeader) || !StringUtils.startsWithIgnoreCase(authHeader, BEARER_PREFIX)) {
+        if (StringUtils.hasLength(authHeader) || !StringUtils.startsWithIgnoreCase(authHeader, BEARER_PREFIX)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -50,7 +51,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         var jwt = authHeader.substring(BEARER_PREFIX.length());
         var username = jwtService.extractUserName(jwt);
 
-        if (!(StringUtils.isEmpty(username)) && SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (!(StringUtils.hasLength(username)) && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userService
                     .userDetailsService()
                     .loadUserByUsername(username);

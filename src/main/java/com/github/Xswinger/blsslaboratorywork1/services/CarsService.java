@@ -6,14 +6,12 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.jta.JtaTransactionManager;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.github.Xswinger.blsslaboratorywork1.config.AtomikosConfig;
 import com.github.Xswinger.blsslaboratorywork1.entities.Brand;
 import com.github.Xswinger.blsslaboratorywork1.entities.CarClass;
 import com.github.Xswinger.blsslaboratorywork1.entities.Country;
-import com.github.Xswinger.blsslaboratorywork1.interfaces.TransportService;
 import com.github.Xswinger.blsslaboratorywork1.entities.Model;
 
 import com.github.Xswinger.blsslaboratorywork1.repositories.BrandRepository;
@@ -45,7 +43,6 @@ public class CarsService{
         this.transactionManager = config.transactionManager();
     }
 
-    // @Override
     public List<Brand> getBrands() {
         List<Brand> brands = brandRepository.findAll();
         return brands;

@@ -1,6 +1,5 @@
 package com.github.Xswinger.blsslaboratorywork1.entities;
 
-import java.math.BigInteger;
 import java.util.*;
 
 import jakarta.persistence.Column;

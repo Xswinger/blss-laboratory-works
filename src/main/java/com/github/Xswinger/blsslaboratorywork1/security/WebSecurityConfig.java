@@ -1,7 +1,8 @@
-package com.github.Xswinger.blsslaboratorywork1.securingWeb;
+package com.github.Xswinger.blsslaboratorywork1.security;
 
-import com.github.Xswinger.blsslaboratorywork1.sequrity.JwtAuthenticationFilter;
-import com.github.Xswinger.blsslaboratorywork1.services.UserService;
+import com.github.Xswinger.blsslaboratorywork1.security.filter.JwtAuthenticationFilter;
+import com.github.Xswinger.blsslaboratorywork1.security.service.UserService;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +17,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import java.util.List;
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @EnableWebSecurity
@@ -39,11 +39,9 @@ public class WebSecurityConfig {
                     return corsConfiguration;
                 }))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/cars/", "trucks/", "/auth/").permitAll()
+                        .requestMatchers("/cars/", "trucks/", "/demo").permitAll()
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/swagger-ui/**", "/swagger-resources/*", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/endpoint", "/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/admin/").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

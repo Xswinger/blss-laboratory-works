@@ -1,4 +1,4 @@
-package com.github.Xswinger.blsslaboratorywork1.services;
+package com.github.Xswinger.blsslaboratorywork1.security.service;
 
 import com.github.Xswinger.blsslaboratorywork1.entities.User;
 import com.github.Xswinger.blsslaboratorywork1.entities.enums.UserRole;

@@ -1,4 +1,4 @@
-package com.github.Xswinger.blsslaboratorywork1.sequrity;
+package com.github.Xswinger.blsslaboratorywork1.security.domain;
 
 import io.swagger.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;

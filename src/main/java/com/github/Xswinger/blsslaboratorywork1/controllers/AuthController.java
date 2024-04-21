@@ -1,9 +1,10 @@
 package com.github.Xswinger.blsslaboratorywork1.controllers;
 
-import com.github.Xswinger.blsslaboratorywork1.sequrity.JwtAuthenticationResponse;
-import com.github.Xswinger.blsslaboratorywork1.sequrity.SignInRequest;
-import com.github.Xswinger.blsslaboratorywork1.sequrity.SignUpRequest;
-import com.github.Xswinger.blsslaboratorywork1.services.AuthenticationService;
+import com.github.Xswinger.blsslaboratorywork1.security.domain.JwtAuthenticationResponse;
+import com.github.Xswinger.blsslaboratorywork1.security.domain.SignInRequest;
+import com.github.Xswinger.blsslaboratorywork1.security.domain.SignUpRequest;
+import com.github.Xswinger.blsslaboratorywork1.security.service.AuthenticationService;
+
 import io.swagger.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
