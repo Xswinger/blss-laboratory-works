@@ -4,8 +4,7 @@ mvn/
 !**/src/main/**/target/
 !**/src/test/**/target/
 **/src/main/resources/application.properties
-tmlog.lck
-tmlog1.log
+*.log
 
 ### STS ###
 .apt_generated

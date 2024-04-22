@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.Xswinger.blsslaboratorywork1.entities.Brand;
 import com.github.Xswinger.blsslaboratorywork1.interfaces.TransportController;
 import com.github.Xswinger.blsslaboratorywork1.services.TrucksService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/trucks")

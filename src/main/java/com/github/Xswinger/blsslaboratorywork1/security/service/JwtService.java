@@ -6,7 +6,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SecureDigestAlgorithm;
 import io.micrometer.common.lang.NonNull;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +22,7 @@ import javax.crypto.SecretKey;
 
 @Service
 public class JwtService {
-    @Value("${token.signing.key}")
+    @Value("${jwt.signing.key}")
     private String jwtSigningKey;
 
     @Value("${jwt.access.experation}")
@@ -48,7 +47,7 @@ public class JwtService {
     public String generateRefreshToken(UserDetails userDetails) {
         return Jwts.builder().subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + jwtRefreshExperationTime))
+                .expiration(new Date(System.currentTimeMillis() + 100000 * jwtRefreshExperationTime))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
     }
 
@@ -63,13 +62,9 @@ public class JwtService {
     }
 
     private String generateAccessToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        // return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
-        //         .setIssuedAt(new Date(System.currentTimeMillis()))
-        //         .setExpiration(new Date(System.currentTimeMillis() + 100000 * 60 * 24))
-        //         .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
         return Jwts.builder().claims(extraClaims).subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + jwtAccessExperationTime))
+                .expiration(new Date(System.currentTimeMillis() + 100000 * jwtAccessExperationTime))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
     }
 
@@ -82,9 +77,6 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        // return Jwts.parser()
-        //         .setSigningKey(getSigningKey()).build().parseClaimsJws(token)
-        //         .getBody();
         return Jwts.parser()
                 .verifyWith((SecretKey) getSigningKey()).build().parseSignedClaims(token)
                 .getPayload();

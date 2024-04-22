@@ -1,7 +1,5 @@
 package com.github.Xswinger.blsslaboratorywork1.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -16,10 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.Xswinger.blsslaboratorywork1.interfaces.TransportController;
 import com.github.Xswinger.blsslaboratorywork1.services.CarsService;
-import com.github.Xswinger.blsslaboratorywork1.entities.Brand;
-import com.github.Xswinger.blsslaboratorywork1.entities.CarClass;
-import com.github.Xswinger.blsslaboratorywork1.entities.Country;
-import com.github.Xswinger.blsslaboratorywork1.entities.Model;
 
 @RestController
 @RequestMapping("/cars")

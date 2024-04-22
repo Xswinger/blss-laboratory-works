@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "users")
+@Table(name = "admin")
 @Service
 public class User implements UserDetails {
 
@@ -29,39 +29,21 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
-    @Column(name = "username", unique = true, nullable = false)
+    @Column(name = "login", unique = true, nullable = false)
     private String username;
 
     @Column(name = "password", nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_role", nullable = false)
+    @Column(name = "role", nullable = false)
     private UserRole role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public UserRole getRole() {
-        return role;
     }
 
     @Override
@@ -82,14 +64,6 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }
 

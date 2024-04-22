@@ -1,8 +1,5 @@
 package com.github.Xswinger.blsslaboratorywork1.controllers;
 
-import java.util.List;
-
-import io.swagger.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +17,7 @@ import com.github.Xswinger.blsslaboratorywork1.services.CarsService;
 @RestController
 @RequestMapping("/admin")
 @CrossOrigin(origins = "", maxAge = 3600)
+//! Remove if useless
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 

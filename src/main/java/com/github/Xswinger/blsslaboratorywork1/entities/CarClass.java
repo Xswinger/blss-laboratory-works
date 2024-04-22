@@ -14,7 +14,7 @@ public class CarClass {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private String name;

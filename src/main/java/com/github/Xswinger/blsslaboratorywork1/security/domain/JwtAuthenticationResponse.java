@@ -1,11 +1,9 @@
 package com.github.Xswinger.blsslaboratorywork1.security.domain;
 
 import io.swagger.oas.annotations.media.Schema;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-// @Builder
 @Schema(description = "Ответ c токеном доступа")
 public class JwtAuthenticationResponse {
     public JwtAuthenticationResponse(String accessToken, String refreshToken) {
