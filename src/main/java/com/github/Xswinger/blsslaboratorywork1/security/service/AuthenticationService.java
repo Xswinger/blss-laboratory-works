@@ -5,9 +5,11 @@ import com.github.Xswinger.blsslaboratorywork1.entities.enums.UserRole;
 import com.github.Xswinger.blsslaboratorywork1.security.domain.JwtAuthenticationResponse;
 import com.github.Xswinger.blsslaboratorywork1.security.domain.SignInRequest;
 import com.github.Xswinger.blsslaboratorywork1.security.domain.SignUpRequest;
+import com.github.Xswinger.blsslaboratorywork1.security.exception.UserAlreadyExistAuthenticationException;
 
 import io.jsonwebtoken.Claims;
 import io.micrometer.common.lang.NonNull;
+import jakarta.security.auth.message.AuthException;
 import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
@@ -29,7 +31,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final Map<String, String> refreshStorage = new HashMap<>();
 
-    public JwtAuthenticationResponse signUp(SignUpRequest request) {
+    public JwtAuthenticationResponse signUp(SignUpRequest request) throws UserAlreadyExistAuthenticationException {
 
         User user = new User(
                 request.getUsername(),
@@ -48,6 +50,7 @@ public class AuthenticationService {
     }
 
     public JwtAuthenticationResponse signIn(SignInRequest request) {
+        userService.getByUsername(request.getUsername());
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getUsername(),
                 request.getPassword()
@@ -65,7 +68,7 @@ public class AuthenticationService {
         return new JwtAuthenticationResponse(jwtAccess, jwtRefresh);
     }
 
-    public JwtAuthenticationResponse getAccessToken(@NonNull String refreshToken, @NonNull User currentUser) {
+    public JwtAuthenticationResponse getAccessToken(@NonNull String refreshToken, @NonNull User currentUser) throws AuthException {
         if (jwtService.isTokenValid(refreshToken, (UserDetails) currentUser)) {
             final Claims claims = jwtService.getRefreshClaims(refreshToken);
             final String login = claims.getSubject();
@@ -74,8 +77,11 @@ public class AuthenticationService {
                 final User user = userService.getByUsername(login);
                 final String accessToken = jwtService.generateToken(user);
                 return new JwtAuthenticationResponse(accessToken, null);
+            } else {
+                throw new AuthException("Invalid token");
             }
+            
         }
-        return new JwtAuthenticationResponse(null, null);
+        throw new AuthException("Invalid token");
     }
 }

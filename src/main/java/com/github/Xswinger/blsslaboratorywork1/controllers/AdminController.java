@@ -17,8 +17,6 @@ import com.github.Xswinger.blsslaboratorywork1.services.CarsService;
 @RestController
 @RequestMapping("/admin")
 @CrossOrigin(origins = "", maxAge = 3600)
-//! Remove if useless
-@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
     private final CarsService carsService;

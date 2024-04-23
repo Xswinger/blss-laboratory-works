@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.github.Xswinger.blsslaboratorywork1.repositories.UserRepository;
+import com.github.Xswinger.blsslaboratorywork1.security.exception.UserAlreadyExistAuthenticationException;
 
 @Service
 public class UserService {
@@ -22,10 +23,10 @@ public class UserService {
         return repository.save(user);
     }
 
-    public User create(User user) {
+    public User create(User user) throws UserAlreadyExistAuthenticationException {
         if (repository.existsByUsername(user.getUsername())) {
             //! Заменить на свои исключения
-            throw new RuntimeException("Пользователь с таким именем уже существует");
+            throw new UserAlreadyExistAuthenticationException("Пользователь с таким именем уже существует");
         }
         return save(user);
     }
@@ -41,12 +42,12 @@ public class UserService {
     }
 
     public User getCurrentUser() {
-        var username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return getByUsername(username);
     }
 
     public void getAdmin() {
-        var user = getCurrentUser();
+        User user = getCurrentUser();
         user.setRole(UserRole.ROLE_ADMIN);
         save(user);
     }
