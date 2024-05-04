@@ -9,11 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.github.Xswinger</groupId>
-	<artifactId>blss-laboratory-work-1</artifactId>
+	<artifactId>mainService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>blss-laboratory-work-1</name>
-	<description>Laboratory Work 1 on the BLoSS</description>
+	<name>mainService</name>
+	<description>Main Service</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
