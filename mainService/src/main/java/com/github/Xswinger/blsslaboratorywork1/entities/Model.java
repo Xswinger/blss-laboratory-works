@@ -34,4 +34,7 @@ public class Model {
     @JoinColumn(name = "LINEUP_ID")
     private CarLineUp lineUp;
 
+    @Column
+    private Integer releaseCount;
+
 }

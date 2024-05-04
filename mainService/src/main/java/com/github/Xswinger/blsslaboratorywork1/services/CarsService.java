@@ -9,11 +9,12 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.github.Xswinger.blsslaboratorywork1.config.AtomikosConfig;
+import com.github.Xswinger.blsslaboratorywork1.entities.Announcement;
 import com.github.Xswinger.blsslaboratorywork1.entities.Brand;
 import com.github.Xswinger.blsslaboratorywork1.entities.CarClass;
 import com.github.Xswinger.blsslaboratorywork1.entities.Country;
 import com.github.Xswinger.blsslaboratorywork1.entities.Model;
-
+import com.github.Xswinger.blsslaboratorywork1.repositories.AnnouncementRepository;
 import com.github.Xswinger.blsslaboratorywork1.repositories.BrandRepository;
 import com.github.Xswinger.blsslaboratorywork1.repositories.ClassRepository;
 import com.github.Xswinger.blsslaboratorywork1.repositories.CountryRepository;
@@ -33,13 +34,16 @@ public class CarsService{
     private final ClassRepository classRepository;
 
     private final CountryRepository countryRepository;
+
+    private final AnnouncementRepository announcementRepository;
     
     @Autowired
-    CarsService(BrandRepository brandRepository, ModelRepository modelRepository, ClassRepository classRepository, CountryRepository countryRepository, AtomikosConfig config) throws Throwable {
+    CarsService(BrandRepository brandRepository, ModelRepository modelRepository, ClassRepository classRepository, CountryRepository countryRepository, AnnouncementRepository announcementRepository, AtomikosConfig config) throws Throwable {
         this.brandRepository = brandRepository;
         this.classRepository = classRepository;
         this.modelRepository = modelRepository;
         this.countryRepository = countryRepository;
+        this.announcementRepository = announcementRepository;
         this.transactionManager = config.transactionManager();
     }
 
@@ -160,5 +164,19 @@ public class CarsService{
     public List<Model> getModelsByFilter(Long countryId, Long lineUpId) {
         List<Model> models = modelRepository.findAllByCountry_IdAndLineUp_Id(countryId, lineUpId);
         return models;
+    }
+
+    public Integer getModelReleaseCount(Long id) {
+        Model model = modelRepository.findById(id).get();
+        return model.getReleaseCount();
+    }
+
+    public List<Announcement> getAnnouncements() {
+        List<Announcement> announcements = announcementRepository.findAll();
+        return announcements;
+    }
+
+    public Announcement closeAnnouncements(Announcement announcement) {
+        return announcementRepository.save(announcement);
     }
 }

@@ -101,4 +101,32 @@ public class AdminController {
             return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
         }
     }
+
+    //TODO Replace this controllers to UserController
+    @PostMapping("/get-model-release-count")
+    public ResponseEntity<?> getModelReleaseCount(@RequestBody @NonNull Long id) {
+        try {
+            return ResponseEntity.ok(carsService.getModelReleaseCount(id));
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @GetMapping("/get-annoucement")
+    public ResponseEntity<?> getAnnouncement() {
+        try {
+            return ResponseEntity.ok(carsService.getAnnouncements());
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @PostMapping("/buy-model")
+    public ResponseEntity<?> closeAnnouncement() {
+        try {
+            return ResponseEntity.ok(carsService.getAnnouncements());
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
+        }
+    }
 }
