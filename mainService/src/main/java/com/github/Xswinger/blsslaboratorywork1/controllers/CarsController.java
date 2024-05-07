@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -93,6 +96,15 @@ public class CarsController implements TransportController {
             return ResponseEntity.ok(service.getRandomClassesByCarClass(classId));
         } catch (DataAccessException e) {
             return new ResponseEntity<Enum<?>>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/get-model-release-count")
+    public ResponseEntity<?> getModelReleaseCount(@RequestBody @NonNull Long id) {
+        try {
+            return ResponseEntity.ok(service.getModelReleaseCount(id));
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
         }
     }
 

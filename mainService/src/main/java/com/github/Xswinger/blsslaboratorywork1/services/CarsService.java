@@ -23,7 +23,7 @@ import com.github.Xswinger.blsslaboratorywork1.repositories.ModelRepository;
 import java.util.*;
 
 @Service("cars")
-public class CarsService{
+public class CarsService {
 
     private final PlatformTransactionManager transactionManager;
 
@@ -171,12 +171,4 @@ public class CarsService{
         return model.getReleaseCount();
     }
 
-    public List<Announcement> getAnnouncements() {
-        List<Announcement> announcements = announcementRepository.findAll();
-        return announcements;
-    }
-
-    public Announcement closeAnnouncements(Announcement announcement) {
-        return announcementRepository.save(announcement);
-    }
 }
