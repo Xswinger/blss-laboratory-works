@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
@@ -97,34 +96,6 @@ public class AdminController {
         try {
             carsService.deleteCountry(id);
             return ResponseEntity.ok("ok");
-        } catch (AuthenticationException e) {
-            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    //TODO Replace this controllers to UserController
-    @PostMapping("/get-model-release-count")
-    public ResponseEntity<?> getModelReleaseCount(@RequestBody @NonNull Long id) {
-        try {
-            return ResponseEntity.ok(carsService.getModelReleaseCount(id));
-        } catch (AuthenticationException e) {
-            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    @GetMapping("/get-annoucement")
-    public ResponseEntity<?> getAnnouncement() {
-        try {
-            return ResponseEntity.ok(carsService.getAnnouncements());
-        } catch (AuthenticationException e) {
-            return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    @PostMapping("/buy-model")
-    public ResponseEntity<?> closeAnnouncement() {
-        try {
-            return ResponseEntity.ok(carsService.getAnnouncements());
         } catch (AuthenticationException e) {
             return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
         }
