@@ -1,4 +1,4 @@
-package com.github.Xswinger.blsslaboratorywork1.config;
+package com.github.Xswinger.blsslaboratorywork1.configuration.atomikos;
 
 import java.util.HashMap;
 import java.util.Map;
