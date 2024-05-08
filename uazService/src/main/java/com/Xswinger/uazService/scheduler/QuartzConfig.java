@@ -11,9 +11,7 @@ import org.quartz.CronTrigger;
 import org.quartz.JobDetail;
 import org.quartz.SimpleTrigger;
 import org.quartz.Trigger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
-import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,13 +22,13 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @Slf4j
 public class QuartzConfig {
-
     private ApplicationContext applicationContext;
     private DataSource dataSource;
     public QuartzConfig(ApplicationContext applicationContext, DataSource dataSource) {
         this.applicationContext = applicationContext;
         this.dataSource = dataSource;
     }
+
     @Bean
     public SpringBeanJobFactory springBeanJobFactory() {
         AutowiringSpringBeanJobFactory jobFactory = new AutowiringSpringBeanJobFactory();
@@ -38,7 +36,6 @@ public class QuartzConfig {
         return jobFactory;
     }
 
-    //TODO take out properties in application.properties
     @Bean
     public SchedulerFactoryBean scheduler(Trigger... triggers) throws IOException {
         SchedulerFactoryBean schedulerFactory = new SchedulerFactoryBean();
@@ -72,6 +69,7 @@ public class QuartzConfig {
         factoryBean.setMisfireInstruction(SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT);
         return factoryBean;
     }
+
     static CronTriggerFactoryBean createCronTrigger(JobDetail jobDetail, String cronExpression, String triggerName) {
         log.debug("createCronTrigger(jobDetail={}, cronExpression={}, triggerName={})", jobDetail.toString(), cronExpression, triggerName);
 
@@ -90,7 +88,6 @@ public class QuartzConfig {
 
         return factoryBean;
     }
-
 
     static JobDetailFactoryBean createJobDetail(Class jobClass, String jobName) {
         JobDetailFactoryBean factoryBean = new JobDetailFactoryBean();
