@@ -1,5 +1,6 @@
 package com.Xswinger.autoRuService.messaging.sender;
 
+import org.eclipse.paho.client.mqttv3.IMqttClient;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -8,30 +9,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.Xswinger.autoRuService.configuration.jms.MqttConfiguration;
+
 @Component
 public class Sender {
 
-    //TODO configure in properties file
-    @Value("${mqtt.broker.url}")
-    private String brokerUrl;
+    private MqttConfiguration configuration;
 
-    @Value("${mqtt.client.id}")
-    private String clientId;
-
-    private final MqttClient client;
+    private IMqttClient client;
 
     @Autowired
-    public Sender() throws MqttException {
-        this.client = new MqttClient(brokerUrl, clientId);
+    public Sender(MqttConfiguration configuration) throws MqttException {
+        this.configuration = configuration;
+        this.client = configuration.mqttClient();
     }
 
     public void sendMessage(String topic, String messageContent) {
         try {
-            MqttConnectOptions options = new MqttConnectOptions();
-            options.setCleanSession(true);
-
-            client.connect(options);
-
+            this.configuration.connect();
+            
             MqttMessage message = new MqttMessage();
             message.setPayload(messageContent.getBytes());
 
