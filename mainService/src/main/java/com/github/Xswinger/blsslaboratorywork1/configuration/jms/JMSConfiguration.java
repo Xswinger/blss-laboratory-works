@@ -3,6 +3,7 @@ package com.github.Xswinger.blsslaboratorywork1.configuration.jms;
 import jakarta.jms.ConnectionFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,9 @@ import com.rabbitmq.jms.admin.RMQConnectionFactory;
 @EnableJms
 public class JMSConfiguration {
 
+    @Value("${spring.jms.pub-sub-domain}")
+    private Boolean pubSubDomain;
+
     private final PlatformTransactionManager transactionManager;
 
     @Autowired
@@ -29,6 +33,7 @@ public class JMSConfiguration {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         configurer.configure(factory, jmsConnectionFactory());
         factory.setSessionTransacted(true);
+        factory.setPubSubDomain(pubSubDomain);
         factory.setTransactionManager(transactionManager);
         return factory;
     }

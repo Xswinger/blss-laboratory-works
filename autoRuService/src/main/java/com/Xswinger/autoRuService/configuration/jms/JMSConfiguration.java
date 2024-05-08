@@ -2,6 +2,7 @@ package com.Xswinger.autoRuService.configuration.jms;
 
 import jakarta.jms.ConnectionFactory;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +15,13 @@ import com.rabbitmq.jms.admin.RMQConnectionFactory;
 @EnableJms
 public class JMSConfiguration {
 
+    @Value("${spring.jms.pub-sub-domain}")
+    private Boolean pubSubDomain;
+
     @Bean
     public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(DefaultJmsListenerContainerFactoryConfigurer configurer) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+        factory.setPubSubDomain(pubSubDomain);
         configurer.configure(factory, jmsConnectionFactory());
         return factory;
     }
