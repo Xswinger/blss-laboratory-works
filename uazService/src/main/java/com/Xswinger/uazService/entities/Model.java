@@ -11,16 +11,21 @@ public class Model {
     @Id
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
-    @Column
+
+    @Column(name = "DESCRIPTION")
     private String description;
-    @Column
-    private String CarClass;
-    @Column
-    private String Brand;
-    @Column
+
+    @Column(name = "CLASS", nullable = false)
+    private String carClass;
+
+    @Column(name = "BRAND", nullable = false)
+    private String brand;
+
+    @Column(name = "COUNTRY", nullable = false)
     private String country;
-    @Column
+
+    @Column(name = "LINE_UP", nullable = false)
     private String lineUp;
 }
