@@ -1,7 +1,6 @@
 package com.github.Xswinger.blsslaboratorywork1.controllers;
 
 import com.github.Xswinger.blsslaboratorywork1.entities.User;
-import com.github.Xswinger.blsslaboratorywork1.security.domain.JwtAuthenticationResponse;
 import com.github.Xswinger.blsslaboratorywork1.security.domain.SignInRequest;
 import com.github.Xswinger.blsslaboratorywork1.security.domain.SignUpRequest;
 import com.github.Xswinger.blsslaboratorywork1.security.exception.UserAlreadyExistAuthenticationException;

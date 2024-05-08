@@ -31,7 +31,6 @@ public class AnnouncementService {
         this.sender = sender;
         this.receiver = receiver;
         this.transactionManager = config.transactionManager();
-        sender.connect();
     }
 
     public List<Announcement> getAnnouncements() {
@@ -50,7 +49,7 @@ public class AnnouncementService {
 
         //TODO get answer from service
         try {
-            sender.sendMessage(null, null);
+            sender.sendMessage(announcement);
             return repository.save(announcement);
             // receiver.receiveAutoRuMessage();
         } catch (Exception e) {

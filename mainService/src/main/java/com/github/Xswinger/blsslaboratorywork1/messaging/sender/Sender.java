@@ -1,60 +1,40 @@
 package com.github.Xswinger.blsslaboratorywork1.messaging.sender;
 
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.IMqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.util.SerializationUtils;
+
+import com.github.Xswinger.blsslaboratorywork1.configuration.mqtt.MqttConfiguration;
+import com.github.Xswinger.blsslaboratorywork1.entities.Announcement;
 
 @Component
 public class Sender {
 
-    //TODO configure in properties file
-    @Value("${mqtt.broker.url}")
-    private String brokerUrl;
+    private MqttConfiguration configuration;
 
-    @Value("${mqtt.client.id}")
-    private String clientId;
-
-    private final MqttClient client;
+    private IMqttClient client;
 
     @Autowired
-    public Sender() throws MqttException {
-        this.client = new MqttClient(brokerUrl, clientId);
+    public Sender(MqttConfiguration configuration) throws MqttException {
+        this.configuration = configuration;
+        this.client = configuration.mqttClient();
     }
 
-    @Bean
-    public void connect() {
+    public void sendMessage(Announcement announcement) {
         try {
-            MqttConnectOptions options = new MqttConnectOptions();
-            options.setCleanSession(true);
-    
-            client.connect(options);   
-        } catch (MqttException e) {
-            // TODO: handle exception
-        }
-    }
-
-    public void sendMessage(String topic, String messageContent) {
-        try {
+            this.configuration.connect();
+            
             MqttMessage message = new MqttMessage();
-            message.setPayload(messageContent.getBytes());
+            message.setPayload(SerializationUtils.serialize(announcement));
 
-            client.publish(topic, message);
+            client.publish(configuration.topic, message);
+
+            client.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    @Bean
-    public void disconnect() {
-        try {
-            client.disconnect();
-        } catch (MqttException e) {
-            // TODO: handle exception
         }
     }
 
