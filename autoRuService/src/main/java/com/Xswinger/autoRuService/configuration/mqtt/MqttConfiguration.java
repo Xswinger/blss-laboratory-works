@@ -23,17 +23,19 @@ public class MqttConfiguration {
     @Value("${mqtt.password}")
     private String password;
 
-    @Value("${spring.jms.topic}")
+    @Value("${mqtt.topic}")
     public String topic;
 
     @Bean
     public IMqttClient mqttClient() throws MqttException {
         String publisherId = UUID.randomUUID().toString();
-        return new MqttClient(brokerUrl ,publisherId);
+        IMqttClient client = new MqttClient(brokerUrl, publisherId);
+        client.connect(options());
+        return client;
     }
 
     @Bean
-    public MqttConnectOptions connect() throws MqttSecurityException, MqttException {
+    public MqttConnectOptions options() throws MqttSecurityException, MqttException {
         MqttConnectOptions options = new MqttConnectOptions();
         options.setAutomaticReconnect(true);
         options.setCleanSession(true);

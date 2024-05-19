@@ -1,5 +1,7 @@
 package com.github.Xswinger.blsslaboratorywork1.entities;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,7 +14,7 @@ import lombok.Data;
 @Entity
 @Table(name = "MODEL")
 @Data
-public class Model {
+public class Model implements Serializable{
 
     @Id
     private Long id;

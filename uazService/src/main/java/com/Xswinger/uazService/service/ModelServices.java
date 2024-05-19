@@ -36,6 +36,6 @@ public class ModelServices {
         String messageSend = message.toString();
 
 
-        sender.sendMessage(topic, messageSend);
+        sender.sendMessage(messageSend);
     }
 }

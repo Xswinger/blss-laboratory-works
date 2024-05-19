@@ -1,4 +1,4 @@
-package com.Xswinger.uazService.config;
+package com.Xswinger.uazService.configuration;
 
 import java.util.UUID;
 
@@ -22,6 +22,9 @@ public class MqttConfiguration {
 
     @Value("${mqtt.password}")
     private String password;
+
+    @Value("${mqtt.topic}")
+    public String topic;
 
     @Bean
     public IMqttClient mqttClient() throws MqttException {

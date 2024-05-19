@@ -13,26 +13,29 @@ import com.github.Xswinger.blsslaboratorywork1.entities.Announcement;
 @Component
 public class Sender {
 
-    private MqttConfiguration configuration;
-
-    private IMqttClient client;
+    @Autowired
+    private IMqttClient mqttClient;
 
     @Autowired
-    public Sender(MqttConfiguration configuration) throws MqttException {
-        this.configuration = configuration;
-        this.client = configuration.mqttClient();
-    }
+    private MqttConfiguration configuration;
 
-    public void sendMessage(Announcement announcement) {
+    public void mainSendMessage(Announcement announcement) {
         try {
-            this.configuration.connect();
-            
             MqttMessage message = new MqttMessage();
             message.setPayload(SerializationUtils.serialize(announcement));
 
-            client.publish(configuration.topic, message);
+            mqttClient.publish(configuration.mainTopic, message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-            client.disconnect();
+    public void uazSendMessage(Announcement announcement) {
+        try {
+            MqttMessage message = new MqttMessage();
+            message.setPayload(SerializationUtils.serialize(announcement));
+
+            mqttClient.publish(configuration.uazTopic, message);
         } catch (Exception e) {
             e.printStackTrace();
         }

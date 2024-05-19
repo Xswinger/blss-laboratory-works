@@ -1,5 +1,7 @@
 package com.github.Xswinger.blsslaboratorywork1.entities;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import lombok.Data;
 @Entity
 @Table(name = "COUNTRY")
 @Data
-public class Country {
+public class Country implements Serializable{
     
     @Id
     @GeneratedValue

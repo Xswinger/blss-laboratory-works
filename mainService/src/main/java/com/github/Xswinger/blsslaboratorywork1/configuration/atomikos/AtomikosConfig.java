@@ -57,7 +57,11 @@ public class AtomikosConfig {
         AtomikosJtaPlatform.transaction = userTransaction;
 
         TransactionManager atomikosTransactionManager = atomikosTransactionManager();
-        return new JtaTransactionManager(userTransaction, atomikosTransactionManager);
+
+        JtaTransactionManager platformTransactionManager = new JtaTransactionManager(userTransaction, atomikosTransactionManager);
+
+        platformTransactionManager.setAllowCustomIsolationLevels(true);
+        return platformTransactionManager;
     }
 
 }

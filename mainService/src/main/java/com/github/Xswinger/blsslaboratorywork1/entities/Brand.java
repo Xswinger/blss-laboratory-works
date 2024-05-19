@@ -1,5 +1,6 @@
 package com.github.Xswinger.blsslaboratorywork1.entities;
 
+import java.io.Serializable;
 import java.util.*;
 
 import jakarta.persistence.Column;
@@ -16,7 +17,7 @@ import lombok.Data;
 @Entity
 @Table(name = "BRAND")
 @Data
-public class Brand {
+public class Brand implements Serializable{
 
     @Id
     @GeneratedValue

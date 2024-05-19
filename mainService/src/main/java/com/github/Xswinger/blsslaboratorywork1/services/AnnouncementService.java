@@ -49,7 +49,7 @@ public class AnnouncementService {
 
         //TODO get answer from service
         try {
-            sender.sendMessage(announcement);
+            sender.mainSendMessage(announcement);
             return repository.save(announcement);
             // receiver.receiveAutoRuMessage();
         } catch (Exception e) {
