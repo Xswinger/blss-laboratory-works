@@ -9,7 +9,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.github.Xswinger.blsslaboratorywork1.configuration.atomikos.AtomikosConfig;
-import com.github.Xswinger.blsslaboratorywork1.entities.Announcement;
 import com.github.Xswinger.blsslaboratorywork1.entities.Brand;
 import com.github.Xswinger.blsslaboratorywork1.entities.CarClass;
 import com.github.Xswinger.blsslaboratorywork1.entities.Country;
@@ -85,7 +84,7 @@ public class CarsService {
 
     public List<Model> saveModel(@NonNull Model newModel) {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-        def.setName("brandCreating");
+        def.setName("modelCreating");
         TransactionStatus status = transactionManager.getTransaction(def);
 
         List<Model> brands = new ArrayList<>();

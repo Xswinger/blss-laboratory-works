@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0ur4273" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.23.0">
+  <bpmn:process id="Example" name="Example" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_135r3yq" name="start service">
+      <bpmn:outgoing>Flow_0c099yn</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_087aydi" name="end service">
+      <bpmn:incoming>Flow_02ukamy</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0c099yn" sourceRef="StartEvent_135r3yq" targetRef="ServiceTask_1" />
+    <bpmn:sequenceFlow id="Flow_02ukamy" sourceRef="ServiceTask_1" targetRef="Event_087aydi" />
+    <bpmn:serviceTask id="ServiceTask_1" name="PrintMessage" camunda:delegateExpression="${exampleService}">
+      <bpmn:incoming>Flow_0c099yn</bpmn:incoming>
+      <bpmn:outgoing>Flow_02ukamy</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Example">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_135r3yq">
+        <dc:Bounds x="172" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="160" y="145" width="60" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_087aydi_di" bpmnElement="Event_087aydi">
+        <dc:Bounds x="452" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="442" y="145" width="57" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1np6e0i_di" bpmnElement="ServiceTask_1">
+        <dc:Bounds x="280" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0c099yn_di" bpmnElement="Flow_0c099yn">
+        <di:waypoint x="208" y="120" />
+        <di:waypoint x="280" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02ukamy_di" bpmnElement="Flow_02ukamy">
+        <di:waypoint x="380" y="120" />
+        <di:waypoint x="452" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

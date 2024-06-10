@@ -16,7 +16,7 @@ import lombok.Data;
 @Entity
 @Table(name = "CAR_LINEUP")
 @Data
-public class CarLineUp implements Serializable{
+public class CarLineUp implements Serializable {
     @Id
     @GeneratedValue
     private Long id;

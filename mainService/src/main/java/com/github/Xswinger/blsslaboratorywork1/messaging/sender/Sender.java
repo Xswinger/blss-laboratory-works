@@ -1,16 +1,14 @@
 package com.github.Xswinger.blsslaboratorywork1.messaging.sender;
 
+import java.nio.ByteBuffer;
+
 import org.eclipse.paho.client.mqttv3.IMqttClient;
-import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.util.SerializationUtils;
+import org.springframework.stereotype.Service;
 
 import com.github.Xswinger.blsslaboratorywork1.configuration.mqtt.MqttConfiguration;
-import com.github.Xswinger.blsslaboratorywork1.entities.Announcement;
-
-@Component
+@Service
 public class Sender {
 
     @Autowired
@@ -19,10 +17,24 @@ public class Sender {
     @Autowired
     private MqttConfiguration configuration;
 
-    public void mainSendMessage(Announcement announcement) {
+    public void sendMessageFromMainToAutoRu(Integer announcementId) {
         try {
             MqttMessage message = new MqttMessage();
-            message.setPayload(SerializationUtils.serialize(announcement));
+            message.setPayload(ByteBuffer.allocate(Long.BYTES).putLong(announcementId).array());
+
+            mqttClient.publish(configuration.autoRuTopic, message);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void sendMessageFromAutoRuToMain(Long id) {
+        try {
+            MqttMessage message = new MqttMessage();
+
+            byte[] bytes = ByteBuffer.allocate(Long.BYTES).putLong(id).array();
+
+            message.setPayload(bytes);
 
             mqttClient.publish(configuration.mainTopic, message);
         } catch (Exception e) {
@@ -30,15 +42,14 @@ public class Sender {
         }
     }
 
-    public void uazSendMessage(Announcement announcement) {
+    public void sendMessageFromUazToMain(Integer count) {
         try {
             MqttMessage message = new MqttMessage();
-            message.setPayload(SerializationUtils.serialize(announcement));
+            message.setPayload(ByteBuffer.allocate(Long.BYTES).putLong(count).array());
 
             mqttClient.publish(configuration.uazTopic, message);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }

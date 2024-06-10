@@ -33,4 +33,8 @@ public class Brand implements Serializable{
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "BRAND_ID")
     private Set<CarLineUp> lineups;
+
+    public String toString() {
+        return "";
+    }
 }

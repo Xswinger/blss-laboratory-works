@@ -76,6 +76,7 @@ public class DataSourceConfiguration {
 
         dataSource.setXaDataSource(ds);
         dataSource.setUniqueResourceName("ds1");
+        dataSource.setMaxPoolSize(10);
         
         return dataSource;
     }

@@ -3,7 +3,6 @@ package com.github.Xswinger.blsslaboratorywork1.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNull;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,9 +38,9 @@ public class AnnouncementController {
     }
 
     @PostMapping("/buy-model")
-    public ResponseEntity<?> closeAnnouncement(@RequestBody @Valid Announcement announcement) {
+    public ResponseEntity<?> closeAnnouncement(@RequestBody @Valid Announcement announcement) throws Exception {
         try {
-            return ResponseEntity.ok(service.closeAnnouncements(announcement));
+            return ResponseEntity.ok(service.closeAnnouncements(announcement.getId()));
         } catch (AuthenticationException e) {
             return new ResponseEntity<Enum<?>>(HttpStatus.UNAUTHORIZED);
         }
